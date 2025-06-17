@@ -67,11 +67,12 @@ public class WalletControllerAdvice {
      * @param statusName название ошибки
      * @param message описание ошибки **/
     private ErrorResponse createErrorResponse(int statusValue, String statusName, String message) {
-        ErrorResponse response = new ErrorResponse();
-        response.setTimestamp(Instant.now().toString());
-        response.setStatus(statusValue);
-        response.setError(statusName);
-        response.setMessage(message);
+        ErrorResponse response = ErrorResponse.builder()
+                .timestamp(Instant.now().toString())
+                .status(statusValue)
+                .error(statusName)
+                .message(message)
+                .build();
         return response;
     }
 }

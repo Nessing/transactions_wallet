@@ -1,8 +1,7 @@
 package ru.nessing.transactions_wallet.utils;
 
-//import lombok.Getter;
-//
-//@Getter
+import lombok.Getter;
+@Getter
 public enum OperationType {
     DEPOSIT("DEPOSIT"),
     WITHDRAW("WITHDRAW"),;
@@ -20,9 +19,5 @@ public enum OperationType {
             }
         }
         return null;
-    }
-
-    public String getValue() {
-        return value;
     }
 }

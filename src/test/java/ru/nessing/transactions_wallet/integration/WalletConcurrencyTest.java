@@ -31,8 +31,9 @@ public class WalletConcurrencyTest {
     @Test
     void testRaceCondition() throws ExecutionException, InterruptedException {
 
-        Wallet wallet = new Wallet();
-        wallet.setBalance(1000.0);
+        Wallet wallet = Wallet.builder()
+                .balance(1000.0)
+                .build();
 
         walletRepository.save(wallet);
         UUID walletId = wallet.getId();
@@ -43,8 +44,9 @@ public class WalletConcurrencyTest {
 
         // поток для имитации обращения к одному кошельку
         Runnable task = () -> {
-            WalletDto dto = new WalletDto();
-            dto.setId(walletId);
+            WalletDto dto = WalletDto.builder()
+                    .id(walletId)
+                    .build();
 
             double randomAmount = Math.floor(Math.random() * 200);
 

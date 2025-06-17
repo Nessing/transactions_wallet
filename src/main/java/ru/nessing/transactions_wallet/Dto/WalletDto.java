@@ -1,11 +1,17 @@
 package ru.nessing.transactions_wallet.Dto;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class WalletDto {
 
     @NotNull(message = "Не указан ID кошелька")
@@ -19,16 +25,4 @@ public class WalletDto {
     @DecimalMin(value = "0.1", message = "Сумма должна быть больше 0.1")
     @NotNull
     private Double amount;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
 }

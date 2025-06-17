@@ -1,4 +1,4 @@
-package ru.nessing.transactions_wallet.service_tests;
+package ru.nessing.transactions_wallet.unit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

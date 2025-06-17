@@ -26,8 +26,9 @@ public class WalletHttpTest {
 
     @BeforeEach
     public void createWallet() {
-        Wallet wallet = new Wallet();
-        wallet.setBalance(1000.0);
+        Wallet wallet = Wallet.builder()
+                .balance(1000.0)
+                .build();
 
         walletRepository.save(wallet);
         this.walletId = wallet.getId();
@@ -41,10 +42,11 @@ public class WalletHttpTest {
 
     @Test
     public void testUpdateWalletBalance() {
-        WalletDto walletDto = new WalletDto();
-        walletDto.setId(this.walletId);
-        walletDto.setOperation(OperationType.DEPOSIT.getValue());
-        walletDto.setAmount(100.0);
+        WalletDto walletDto = WalletDto.builder()
+                .id(this.walletId)
+                .operation(OperationType.DEPOSIT.getValue())
+                .amount(1000.0)
+                .build();
 
         ResponseEntity<?> response = restTemplate.postForEntity("/api/v1/wallet/update", walletDto, Object.class);
         System.out.println(response.getBody());
