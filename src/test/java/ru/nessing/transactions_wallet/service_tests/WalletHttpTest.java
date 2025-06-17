@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import ru.nessing.transactions_wallet.Dto.WalletDto;
 import ru.nessing.transactions_wallet.entities.Wallet;
 import ru.nessing.transactions_wallet.repositories.WalletRepository;
+import ru.nessing.transactions_wallet.services.WalletService;
 import ru.nessing.transactions_wallet.utils.OperationType;
 
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WalletHttpTest {
@@ -22,12 +25,16 @@ public class WalletHttpTest {
     @Autowired
     private WalletRepository walletRepository;
 
+    @Autowired
+    private WalletService walletService;
+
+    private final double amount = 1000.0;
     private UUID walletId = null;
 
     @BeforeEach
     public void createWallet() {
         Wallet wallet = Wallet.builder()
-                .balance(1000.0)
+                .balance(this.amount)
                 .build();
 
         walletRepository.save(wallet);
@@ -38,17 +45,24 @@ public class WalletHttpTest {
     public void testGetBalance() {
         ResponseEntity<?> response = restTemplate.getForEntity("/api/v1/wallet/" + this.walletId, Object.class);
         System.out.println(response.getBody());
+        assertEquals(amount, response.getBody());
     }
 
     @Test
     public void testUpdateWalletBalance() {
+        double deposit = 150.0;
         WalletDto walletDto = WalletDto.builder()
                 .id(this.walletId)
                 .operation(OperationType.DEPOSIT.getValue())
-                .amount(1000.0)
+                .amount(deposit)
                 .build();
 
-        ResponseEntity<?> response = restTemplate.postForEntity("/api/v1/wallet/update", walletDto, Object.class);
-        System.out.println(response.getBody());
+        restTemplate.postForEntity("/api/v1/wallet/update", walletDto, Void.class);
+
+        double checkingBalance = this.amount + deposit;
+        double updateBalance = walletService.getBalance(this.walletId);
+
+        System.out.printf("checking balance: %f\nupdated balance: %f\n", checkingBalance, updateBalance);
+        assertEquals(checkingBalance, updateBalance);
     }
 }

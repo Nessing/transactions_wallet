@@ -74,7 +74,7 @@ public class WalletConcurrencyTest {
         }
 
         Double WalletBalance = walletService.getBalance(walletId);
-        System.out.printf("UUID wallet: %s\nBalance: %s", walletId, WalletBalance);
+        System.out.printf("UUID wallet: %s\nBalance: %s\n", walletId, WalletBalance);
         assertEquals(this.finalBalance, WalletBalance);
     }
 }
