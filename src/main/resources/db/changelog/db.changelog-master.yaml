@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-table-wallets.yaml
+  - include:
+      file: db/changelog/changeset/insert-into-wallets-values.yaml

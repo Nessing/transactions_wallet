@@ -1,0 +1,12 @@
+#server:
+#  port: 8080
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://postgres:5432/walletdb
+#    username: admin
+#    password: 123456
+#    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

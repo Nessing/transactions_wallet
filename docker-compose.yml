@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  transactions-wallet:
+    build: .
+    container_name: wallet_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/walletdb
+#      SPRING_DATASOURCE_USERNAME: admin
+#      SPRING_DATASOURCE_PASSWORD: 123456
+    env_file:
+      - environments/service_dev.env
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - ./config:/config  # <-- Монтируем папку с внешним application.yml
+    command: java -jar app.jar --spring.config.location=file:/config/application.yml
+    networks:
+      - wallet-network
+
+  postgres:
+    image: postgres:16
+    container_name: wallet_db
+    env_file:
+      - environments/postgres_dev.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      POSTGRES_DB: walletdb
+#      POSTGRES_USER: admin
+#      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - wallet-network
+
+volumes:
+  postgres_data:
+
+networks:
+  wallet-network:
+    driver: bridge
+
+#    docker-compose up -d --no-build transactions-wallet - перезапуск контейнера
+#    docker-compose --env-file .env.prod up
+
+#  docker-compose down
+#  docker-compose up -d
+
+#  docker-compose up -d --no-build - если образ не менялся

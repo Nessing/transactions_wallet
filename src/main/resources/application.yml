@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: transactions_wallet
+  liquibase:
+    enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+#    url: jdbc:h2:file:./db
+    username: sa
+    password:
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/walletdb
+#    username: admin
+#    password: 123456
+#    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.H2Dialect
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#        hibernate:
+#          ddl-auto: none
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

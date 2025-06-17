@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-values
+      author: Vladimir
+      changes:
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                  name: id
+                  value: 550e8400-e29b-41d4-a716-446655440000
+              - column:
+                  name: balance
+                  value: 1000
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                    name: id
+                    value: 381e8420-e29b-41d4-a642-446669105429
+              - column:
+                  name: balance
+                  value: 3942
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                  name: id
+                  value: 170e8420-e79b-42d4-a642-446617943381
+              - column:
+                  name: balance
+                  value: 218
