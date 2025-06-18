@@ -1,12 +1,15 @@
-#server:
-#  port: 8080
-
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://postgres:5432/walletdb
-#    username: admin
-#    password: 123456
-#    driver-class-name: org.postgresql.Driver
+spring:
+  datasource:
+#      БД не сохраняется (данные есть, пока запущен сервис)
+    url: jdbc:h2:mem:testdb
+#    создается файл с БД
+#    url: jdbc:h2:file:./db
+    username: sa
+    password:
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+        enabled: true
+        path: /h2-console

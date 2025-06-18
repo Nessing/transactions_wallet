@@ -45,7 +45,7 @@ networks:
     driver: bridge
 
 #    docker-compose up -d --no-build transactions-wallet - перезапуск контейнера
-#    docker-compose --env-file .env.prod up
+#    docker-compose --env-file .env.prod up - запуск контейнера используя выбранную среду
 
 #  docker-compose down - остановка контейнера
 #  docker-compose up -d - запуск контейнера
